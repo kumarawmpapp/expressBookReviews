@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "17385074-08d0-4223-a1dc-26fb060cc661",
+		"name": "Book Review API",
+		"description": "Postman collection for IBM Book Review Final Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5268003"
+	},
+	"item": [
+		{
+			"name": "1 - Get All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Get Book by ISBN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/isbn/1"
+			},
+			"response": []
+		},
+		{
+			"name": "3 - Get Books by Author",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/author/Unknown"
+			},
+			"response": []
+		},
+		{
+			"name": "4 - Get Books by Title",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/title/The Alchemist"
+			},
+			"response": []
+		},
+		{
+			"name": "5 - Get Book Reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/review/1"
+			},
+			"response": []
+		},
+		{
+			"name": "6 - Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"user1\", \"password\": \"password1\"}"
+				},
+				"url": "{{base_url}}/customer/register"
+			},
+			"response": []
+		},
+		{
+			"name": "7 - Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"user1\", \"password\": \"password1\"}"
+				},
+				"url": "{{base_url}}/customer/login"
+			},
+			"response": []
+		},
+		{
+			"name": "8 - Add or Modify Book Review",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/customer/auth/review/1?review=Great book!",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"customer",
+						"auth",
+						"review",
+						"1"
+					],
+					"query": [
+						{
+							"key": "review",
+							"value": "Great book!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9 - Delete Book Review",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{base_url}}/customer/auth/review/1"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000"
+		}
+	]
+}
