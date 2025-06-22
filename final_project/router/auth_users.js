@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-let books = require("./booksdb.js");
+const db = require("./booksdb.js");
 const regd_users = express.Router();
 
 let users = [];
@@ -43,30 +43,23 @@ regd_users.post("/login", (req, res) => {
 });
 
 // Add a book review
-regd_users.put("/auth/review/:isbn", (req, res) => {
-    const isbn = req.params.isbn;
-    const review = req.query.review;
-    const username = req.session.authorization.username;
-
-    if (!books[isbn].reviews) {
-        books[isbn].reviews = {};
-    }
-
-    books[isbn].reviews[username] = review;
-    return res.status(200).send("Review added/updated");
+regd_users.put("/auth/review/:isbn", async (req, res) => {
+  try {
+    const book = await db.addOrUpdateReview(Number(req.params.isbn), req.session.authorization.username, req.query.review);
+    res.json({ message: "Review updated", book });
+  } catch {
+    res.status(404).send("Book not found");
+  }
 });
 
 // Delete a book review
-regd_users.delete("/auth/review/:isbn", (req, res) => {
-    const isbn = req.params.isbn;
-    const username = req.session.authorization.username;
-
-    if (books[isbn].reviews && books[isbn].reviews[username]) {
-        delete books[isbn].reviews[username];
-        return res.status(200).send("Review deleted");
-    }
-
-    return res.status(404).send("Review not found");
+regd_users.delete("/auth/review/:isbn", async (req, res) => {
+  try {
+    const book = await db.deleteReview(Number(req.params.isbn), req.session.authorization.username);
+    res.json({ message: "Review deleted", book });
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
 });
 
 
